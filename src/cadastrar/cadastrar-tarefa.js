@@ -1,7 +1,7 @@
 import React, {Fragment, useState } from 'react';
 import { Button, Form, Jumbotron, Modal } from 'react-bootstrap';
 import { navigate, A } from 'hookrouter';
-
+import Tarefa from '../models/tarefa.model';
 
 
 function CadastrarTarefa() {
@@ -11,12 +11,25 @@ function CadastrarTarefa() {
     const [exibirModal, setExibirModal] = useState(false);
 
     function cadastrar(e){
-
+        // inibir atualizacao da pagina
+        e.preventDefault();
+        setFormValidado(true);
+        if(e.currentTarget.checkValidity() ===  true){
+            // obtem as tarefas
+            const tarefasDb = localStorage['tarefas'];
+            const tarefas = tarefasDb ? JSON.parse(tarefasDb) : [];
+            //persiste a tarefa
+            tarefas.push(new Tarefa(new Date().getTime(), tarefa, false));
+            localStorage['tarefas'] = JSON.stringify(tarefas);
+            setExibirModal(true);
+        }
     }
     function handleTxtTarefa(e){
-        
+        setTarefa(e.target.value);
     }
-
+    function handleFecharModal(){
+        navigate('/');
+    }
 
 
     return (
@@ -36,7 +49,8 @@ function CadastrarTarefa() {
                         maxLength="100"
                         required 
                         value={tarefa}
-                        onChange={handleTxtTarefa} />
+                        onChange={handleTxtTarefa} 
+                        data-testid="txt-tarefa"/>
                         <Form.Control.Feedback type="invalid">
                             A tarefa deve conter ao menos 5 caracteres.
                         </Form.Control.Feedback>
@@ -44,23 +58,25 @@ function CadastrarTarefa() {
                     <Form.Group className="text-center">
                         <Button 
                         variant="success"
-                        type="submit">
+                        type="submit"
+                        data-testid="btn-cadastrar">
                         Cadastrar
                         </Button>
                         &nbsp;
                         <A href="/" className="btn btn-light">Voltar</A>
                     </Form.Group>
                 </Form>
-                <Modal show={false}>
+                <Modal show={exibirModal} onHide={handleFecharModal} data-testid="modal">
                 <Modal.Header closeButton>
                     <Modal.Title>Sucesso</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    Tarefa cadastrada com sucesso!
+                    Tarefa adicionada com sucesso!
                 </Modal.Body>
                 <Modal.Footer>
                     <Button
-                    variant="success" >
+                    variant="success" 
+                    onClick={handleFecharModal}>
                         Continuar
                     </Button>
                 </Modal.Footer>
