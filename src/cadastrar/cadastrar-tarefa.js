@@ -1,4 +1,4 @@
-import React, {Fragment, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Form, Jumbotron, Modal } from 'react-bootstrap';
 import { navigate, A } from 'hookrouter';
 import Tarefa from '../models/tarefa.model';
