@@ -1,4 +1,4 @@
-import React, { /*useState */} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Pagination from 'react-bootstrap/Pagination';
 
@@ -53,7 +53,7 @@ function Paginacao(props){
         let items = [];
         items.push(gerarPrimeiroItem());
         items.push(gerarItemAnterior());
-        for (let pagina=1; pagina >= numPaginas; pagina++){
+        for (let pagina=1; pagina <= numPaginas; pagina++){
             items.push(gerarItemNumerico(pagina));
         }
         items.push(gerarProximoItem(numPaginas));

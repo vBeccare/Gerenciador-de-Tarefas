@@ -10,7 +10,7 @@ describe('Teste do componente de paginacao', () =>{
         const div = document.createElement('div');
         ReactDOM.render(
         <Paginacao 
-            totalItems={10}
+            totalItems={ 10 }
             itemsPorPagina={ 10 } 
             paginaAtual={ 1 }
             mudarPagina={() => false }/>, div);

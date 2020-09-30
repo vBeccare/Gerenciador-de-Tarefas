@@ -9,7 +9,7 @@ import Paginacao from './paginacao';
 
 function ListarTarefas() {
 
-    const ITENS_POR_PAG = 4;
+    const ITENS_POR_PAG = 3;
 
     const [tarefas, setTarefas] = useState([]);
     const [carregarTarefas, setCarregarTarefas] = useState(true);
